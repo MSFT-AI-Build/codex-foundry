@@ -1,0 +1,37 @@
+<!--
+  Scope: Codex Responses API or POST /responses operation
+  Replace YOUR_RESOURCE_NAME before applying.
+  If your existing Azure OpenAI resource requires the Cognitive Services
+  audience, change the managed identity resource to
+  https://cognitiveservices.azure.com.
+-->
+<policies>
+  <inbound>
+    <base />
+    <set-backend-service base-url="https://YOUR_RESOURCE_NAME.openai.azure.com" />
+    <rewrite-uri template="/openai/v1/responses" copy-unmatched-params="false" />
+
+    <authentication-managed-identity
+      resource="https://ai.azure.com"
+      output-token-variable-name="foundry-token"
+      ignore-error="false" />
+
+    <set-header name="Authorization" exists-action="override">
+      <value>@("Bearer " + (string)context.Variables["foundry-token"])</value>
+    </set-header>
+
+    <set-header name="api-key" exists-action="delete" />
+    <set-header name="Ocp-Apim-Subscription-Key" exists-action="delete" />
+  </inbound>
+  <backend>
+    <forward-request
+      buffer-response="false"
+      fail-on-error-status-code="false" />
+  </backend>
+  <outbound>
+    <base />
+  </outbound>
+  <on-error>
+    <base />
+  </on-error>
+</policies>

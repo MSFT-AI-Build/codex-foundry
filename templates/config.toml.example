@@ -1,0 +1,15 @@
+# Merge this into %USERPROFILE%\.codex\config.toml.
+# Never put the APIM subscription key in this file.
+
+model_provider = "foundry_apim"
+model = "YOUR_DEPLOYMENT_NAME"
+
+[model_providers.foundry_apim]
+name = "Microsoft Foundry via APIM"
+base_url = "https://YOUR_APIM_HOST/codex/openai/v1"
+wire_api = "responses"
+requires_openai_auth = false
+env_http_headers = { "Ocp-Apim-Subscription-Key" = "CODEX_APIM_SUBSCRIPTION_KEY" }
+request_max_retries = 4
+stream_max_retries = 5
+stream_idle_timeout_ms = 300000
