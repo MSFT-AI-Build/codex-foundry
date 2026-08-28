@@ -5,10 +5,22 @@
 ## 학습 목표
 
 - APIM을 Codex custom model provider로 등록합니다.
-- secret을 환경 변수로 주입합니다.
+- 비밀 값을 환경 변수로 주입합니다.
 - 기본 provider 또는 선택 프로필로 실행합니다.
 
 예상 시간은 15분입니다.
+
+**완료 결과:** APIM을 가리키는 Codex provider를 사용자 전역 설정에 등록하고 `codex exec`로 end-to-end 연결을 확인합니다.
+
+## 시작하기 전에
+
+모듈 3에서 확보한 다음 값을 준비합니다.
+
+| 값 | 설정에서의 용도 |
+| --- | --- |
+| APIM 호스트 이름 | `base_url`의 호스트 |
+| Foundry 모델 배포명 | Codex의 `model` 값 |
+| APIM subscription key | 환경 변수 `CODEX_APIM_SUBSCRIPTION_KEY` |
 
 ## 4.1 설정 위치 이해
 
@@ -109,7 +121,7 @@ codex exec --profile foundry '한 문장으로 연결 성공이라고 답해.'
 
 현재 Codex 문서의 프로필 형식은 `$CODEX_HOME/profile-name.config.toml`입니다. 예전 `[profiles.foundry]` table 예시와 혼용하지 않습니다.
 
-## 기존 Preview `api-version` 계약
+## 4.5 기존 Preview `api-version` 계약
 
 기존 APIM이 다음 URL만 제공한다면 Preview 설정을 사용합니다.
 
@@ -135,7 +147,7 @@ stream_idle_timeout_ms = 300000
 
 Preview contract에서는 APIM rewrite도 해당 Azure API version의 backend path에 맞춰야 합니다. v1 path와 Preview query parameter를 함께 사용하지 않습니다.
 
-## 4.5 다른 subscription header 이름
+## 4.6 다른 subscription header 이름
 
 APIM API에서 `api-key` 같은 다른 header 이름을 사용한다면 다음 한 줄만 실제 계약에 맞게 바꿉니다.
 
@@ -143,7 +155,7 @@ APIM API에서 `api-key` 같은 다른 header 이름을 사용한다면 다음 �
 env_http_headers = { "api-key" = "CODEX_APIM_SUBSCRIPTION_KEY" }
 ```
 
-## 4.6 Codex 연결 검증
+## 4.7 Codex 연결 검증
 
 먼저 현재 Codex가 설정 파일과 provider 항목을 정상적으로 읽는지 확인합니다.
 
@@ -151,7 +163,7 @@ env_http_headers = { "api-key" = "CODEX_APIM_SUBSCRIPTION_KEY" }
 codex doctor --summary
 ```
 
-문제가 있으면 secret 값을 노출하지 않는 JSON 진단 결과를 확인합니다.
+문제가 있으면 비밀 값을 노출하지 않는 JSON 진단 결과를 확인합니다.
 
 ```powershell
 codex doctor --json
@@ -183,7 +195,7 @@ codex
 - [ ] `base_url`에 `/responses`가 중복되지 않는다.
 - [ ] `model`이 Foundry 배포명과 일치한다.
 - [ ] `wire_api = "responses"`를 사용한다.
-- [ ] secret 값이 TOML이나 Git 파일에 없다.
+- [ ] 비밀 값이 TOML이나 Git 파일에 없다.
 - [ ] v1과 Preview 계약 중 하나만 선택했다.
 - [ ] `codex doctor --summary`에 provider 설정 오류가 없다.
 - [ ] `codex exec`가 APIM을 통해 정상 응답을 반환한다.

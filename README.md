@@ -1,12 +1,12 @@
-# Codex + Microsoft Foundry Workshop
+# Codex + Microsoft Foundry 워크숍
 
-> 워크샵에서는 Codex CLI를 Azure API Management(APIM)를 통해 Microsoft Foundry의 OpenAI 호환 Responses API에 연결하는 실습형 가이드를 제공합니다.
+> Codex CLI를 Azure API Management(APIM)를 통해 Microsoft Foundry의 OpenAI 호환 Responses API에 연결하는 실습형 가이드입니다.
 
-![Codex_Foudnry](./images/codex_foundry.png)
+![Codex, APIM, Microsoft Foundry 연결 구성](./images/codex_foundry.png)
 
-OpenAI 의 Codex 를 Microsoft Foundry 기반의 Azure Stack 에 통합시킴으로서 Enterprise Level 의 Security 및 Governance 를 통합해서 구성할 수 있습니다.
+Codex를 Microsoft Foundry 기반 Azure 환경에 통합하면 조직의 보안과 거버넌스 요구 사항을 APIM에서 일관되게 적용할 수 있습니다.
 
-워크샵에서는 실습을 위한 최소한의 기술 스택에 집중합니다. Production 환경을 염두한다면 05-production-checklist 항목을 참고해보시고, 설정에 어려움이 있으신 경우 언제든 mcapskr-ent-stu-build@microsoft.com 으로 연락 부탁드립니다.
+이 워크숍은 연결에 필요한 최소 기술 스택에 집중합니다. 운영 환경으로 전환할 때는 [모듈 5의 Production 체크리스트](./05-production-checklist/)를 함께 검토하세요. 설정에 도움이 필요하면 `mcapskr-ent-stu-build@microsoft.com`으로 문의할 수 있습니다.
 
 
 ## 워크숍 목표
@@ -31,7 +31,7 @@ OpenAI 의 Codex 를 Microsoft Foundry 기반의 Azure Stack 에 통합시킴으
 
 ## 예상 시간과 준비물
 
-- 예상 시간: 약 80~110분
+- 예상 시간: 약 95~125분(리소스 프로비저닝 대기 시간 제외)
 - Windows PowerShell 7 또는 Windows PowerShell 5.1
 - 설치된 Codex CLI
 - Microsoft Foundry에서 모델을 배포할 권한
@@ -41,6 +41,10 @@ OpenAI 의 Codex 를 Microsoft Foundry 기반의 Azure Stack 에 통합시킴으
 
 > 이 워크숍은 Windows 기준입니다. macOS/Linux에서는 환경 변수와 경로 표기만 셸에 맞게 바꾸면 Codex 설정 원리는 같습니다.
 
+## 진행 방법
+
+각 모듈은 **학습 목표 → 준비와 구성 → 검증 → 체크포인트** 순서로 진행합니다. 포털의 버튼과 메뉴 이름은 **굵게**, 직접 바꿔야 하는 예시 값은 `YOUR_...` 또는 `APIM_...` 형식으로 표시합니다. 비밀 값은 문서나 설정 파일에 기록하지 않습니다.
+
 ## 워크숍 구성
 
 | # | 모듈 | 결과물 | 난이도 |
@@ -49,7 +53,7 @@ OpenAI 의 Codex 를 Microsoft Foundry 기반의 Azure Stack 에 통합시킴으
 | 2 | [Foundry 모델 준비](./02-foundry-model/) | Responses API가 동작하는 배포 | ⭐⭐ |
 | 3 | [APIM AI Gateway 구성](./03-apim-gateway/) | `/codex/openai/v1/responses` 엔드포인트 | ⭐⭐⭐ |
 | 4 | [Codex 연결 설정](./04-codex-configuration/) | 사용자 전역 provider와 선택 프로필 | ⭐⭐ |
-| 5 | [Production 전환 체크리스트](./05-production-checklist/) | 회원, 인증, 관측, 보안, 거버넌스 운영 기준 | ⭐⭐⭐ |
+| 5 | [Production 전환 체크리스트](./05-production-checklist/) | 사용자, 인증, 관측, 보안, 거버넌스 운영 기준 | ⭐⭐⭐ |
 
 권장 순서는 1 → 2 → 3 → 4 → 5입니다. Foundry와 APIM이 이미 준비되어 있다면 1 → 4 → 5만 진행해도 됩니다.
 
@@ -94,4 +98,4 @@ https://APIM_HOST/codex/openai/v1
 - [Microsoft Learn: Azure OpenAI Responses API](https://learn.microsoft.com/azure/foundry/openai/how-to/responses)
 - [Microsoft Learn: AI gateway capabilities in API Management](https://learn.microsoft.com/azure/api-management/genai-gateway-capabilities)
 
-문서는 2026-08-27에 확인한 공식 문서를 기준으로 합니다. 지원 모델, 지역, 역할 이름, API 계약은 Azure 리소스 유형과 배포 시점에 따라 달라질 수 있으므로 실제 Foundry endpoint와 APIM operation을 최종 기준으로 삼으세요.
+문서는 2026-08-28에 확인한 공식 문서를 기준으로 합니다. 지원 모델, 지역, 역할 이름, API 계약은 Azure 리소스 유형과 배포 시점에 따라 달라질 수 있으므로 실제 Foundry 엔드포인트와 APIM operation을 최종 기준으로 삼으세요.

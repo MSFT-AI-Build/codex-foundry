@@ -10,13 +10,15 @@
 
 예상 시간은 10분입니다.
 
+**완료 결과:** 사용할 API 계약, Foundry 배포명, APIM 호스트와 필요한 권한을 한 장의 입력값 시트로 정리합니다.
+
 ## 1.1 구성 요소의 역할
 
 | 구성 요소 | 역할 | 보유하는 인증 정보 |
 | --- | --- | --- |
 | Codex CLI | Responses API client | APIM subscription key |
 | APIM | 인증, 라우팅, 제한, 관측 | Managed Identity |
-| Microsoft Foundry | 모델 추론 | 모델 배포와 quota |
+| Microsoft Foundry | 모델 추론 | 모델 배포와 할당량(quota) |
 
 권장 경계는 Codex가 Foundry credential을 직접 가지지 않는 것입니다. 개발자에게는 APIM 접근 권한만 배포하고, APIM이 Managed Identity로 Foundry에 인증합니다.
 
@@ -25,7 +27,7 @@ Developer workstation                 Azure boundary
 ┌──────────────────┐                 ┌────────────────────────────┐
 │ Codex            │ subscription   │ APIM                       │
 │ config.toml      ├──── key ──────►│ auth / quota / logging     │
-│ env var (secret) │                 └─────────────┬──────────────┘
+│ 환경 변수(비밀)  │                 └─────────────┬──────────────┘
 └──────────────────┘                               │ Managed Identity
                                                    ▼
                                       ┌────────────────────────────┐
@@ -57,7 +59,7 @@ Preview 계약은 `api-version` query parameter를 사용하는 기존 APIM 환�
 
 ## 1.3 입력값 시트
 
-다음 표를 복사해 실제 값으로 채웁니다. secret은 값 자체가 아니라 저장 위치만 기록합니다.
+다음 표를 복사해 실제 값으로 채웁니다. 비밀 값은 값 자체가 아니라 저장 위치만 기록합니다.
 
 | 이름 | 예시 | 내 환경 |
 | --- | --- | --- |
@@ -70,7 +72,7 @@ Preview 계약은 `api-version` query parameter를 사용하는 기존 APIM 환�
 | APIM hostname | `contoso-ai-apim.azure-api.net` | |
 | APIM public base path | `/codex/openai/v1` | |
 | APIM product/subscription | `codex-developers` | |
-| Secret 저장 위치 | 사용자 환경 변수 | |
+| 비밀 값 저장 위치 | 사용자 환경 변수 | |
 
 > `model`에는 모델 카탈로그 이름이 아니라 Foundry에서 생성한 **배포명**을 사용합니다.
 
@@ -110,6 +112,6 @@ Azure CLI는 필수는 아니지만 RBAC와 진단을 반복할 때 유용합니
 - [ ] APIM hostname과 public base path를 정했다.
 - [ ] Foundry 모델 배포명을 확인했다.
 - [ ] APIM, Foundry, RBAC 작업 권한을 확인했다.
-- [ ] secret 값을 문서나 저장소에 적지 않았다.
+- [ ] 비밀 값을 문서나 저장소에 적지 않았다.
 
 [🏠 메인](../README.md) | [➡️ 다음: Foundry 모델 준비](../02-foundry-model/)
